@@ -13,7 +13,7 @@ Repo size: **~65 MB** (gstack 510 MB binaries pruned, see `claude/skills/gstack/
 ### Windows (PowerShell)
 
 ```powershell
-git clone undefined
+git clone https://github.com/harshvardhankulkarni/opencode-portable-setup.git
 cd opencode-portable-setup
 Copy-Item .env.example .env    # <- fill keys (see below)
 notepad .env                   # GITHUB_TOKEN, FIRECRAWL_API_KEY, FREELLMAPI_API_KEY, ANTHROPIC_AUTH_TOKEN, OMNIROUTE_API_KEY
@@ -31,7 +31,7 @@ claude                           # -> FreeLLMAPI auto
 ### macOS / Linux
 
 ```bash
-git clone undefined
+git clone https://github.com/harshvardhankulkarni/opencode-portable-setup.git
 cd opencode-portable-setup
 cp .env.example .env && nano .env
 # also:
@@ -62,7 +62,7 @@ irm https://raw.githubusercontent.com/harshvardhankulkarni/opencode-portable-set
 ```
 You are on a fresh machine. Clone and install my full workstation:
 
-1. git clone undefined && cd opencode-portable-setup
+1. git clone https://github.com/harshvardhankulkarni/opencode-portable-setup.git && cd opencode-portable-setup
 2. Read README.md, docs/INVENTORY.md, docs/INSTALL.md, docs/ENV_VARS.md, docs/MCP.md, mcp/README.md, freellmapi/README.md, claude/settings.json, codex/config.toml
 3. Run the installer:
    - Windows: powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Verbose
