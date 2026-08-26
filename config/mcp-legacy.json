@@ -1,0 +1,141 @@
+{
+  "mcpServers":  {
+                        "firecrawl":  {
+                                          "command":  "npx",
+                                          "args":  [
+                                                       "-y",
+                                                       "firecrawl-mcp@latest"
+                                                   ],
+                                          "env":  {
+                                                  }
+                                      },
+                        "github":  {
+                                      "command":  "npx",
+                                      "args":  [
+                                                   "-y",
+                                                   "@modelcontextprotocol/server-github"
+                                               ],
+                                      "env":  {
+                                                  "GITHUB_PERSONAL_ACCESS_TOKEN":  "${GITHUB_TOKEN}"
+                                              }
+                                  },
+                        "context7":  {
+                                        "command":  "npx",
+                                        "args":  [
+                                                     "-y",
+                                                     "@upstash/context7-mcp"
+                                                 ],
+                                        "env":  {
+                                                }
+                                    },
+                        "playwright":  {
+                                          "command":  "npx",
+                                          "args":  [
+                                                       "-y",
+                                                       "@playwright/mcp@latest"
+                                                   ],
+                                          "env":  {
+                                                  }
+                                      },
+                        "vercel":  {
+                                      "command":  "npx",
+                                      "args":  [
+                                                   "-y",
+                                                   "@vercel/mcp-server"
+                                               ],
+                                      "env":  {
+                                                  "VERCEL_TOKEN":  "${VERCEL_TOKEN}"
+                                              }
+                                  },
+                        "linear":  {
+                                      "command":  "npx",
+                                      "args":  [
+                                                   "-y",
+                                                   "@linear/mcp-server"
+                                               ],
+                                      "env":  {
+                                                  "LINEAR_API_KEY":  "${LINEAR_API_KEY}"
+                                              }
+                                  },
+                        "sentry":  {
+                                      "command":  "npx",
+                                      "args":  [
+                                                   "-y",
+                                                   "@sentry/mcp-server"
+                                               ],
+                                      "env":  {
+                                                  "SENTRY_AUTH_TOKEN":  "${SENTRY_AUTH_TOKEN}"
+                                              }
+                                  },
+                        "sequential-thinking":  {
+                                                   "command":  "npx",
+                                                   "args":  [
+                                                                "-y",
+                                                                "@modelcontextprotocol/server-sequential-thinking"
+                                                            ],
+                                                   "env":  {
+                                                            }
+                                               },
+                        "e2b":  {
+                                    "command":  "npx",
+                                    "args":  [
+                                                 "-y",
+                                                 "@e2b/mcp-server"
+                                             ],
+                                    "env":  {
+                                                "E2B_API_KEY":  "${E2B_API_KEY}"
+                                            }
+                                },
+                        "supabase":  {
+                                        "command":  "npx",
+                                        "args":  [
+                                                     "-y",
+                                                     "@supabase/mcp-server"
+                                                 ],
+                                        "env":  {
+                                                    "SUPABASE_ACCESS_TOKEN":  "${SUPABASE_ACCESS_TOKEN}"
+                                                }
+                                    },
+                        "browser":  {
+                                        "command":  "npx",
+                                        "args":  [
+                                                     "-y",
+                                                     "@browsermcp/mcp@latest"
+                                                 ],
+                                        "env":  {
+                                                }
+                                    },
+                        "skyvern":  {
+                                        "command":  "npx",
+                                        "args":  [
+                                                     "-y",
+                                                     "@skyvern/mcp-server"
+                                                 ],
+                                        "env":  {
+                                                    "SKYVERN_API_KEY":  "${SKYVERN_API_KEY}"
+                                                }
+                                    },
+                        "browserbase":  {
+                                            "command":  "npx",
+                                            "args":  [
+                                                         "-y",
+                                                         "@browserbase/mcp-server"
+                                                     ],
+                                            "env":  {
+                                                        "BROWSERBASE_API_KEY":  "${BROWSERBASE_API_KEY}",
+                                                        "BROWSERBASE_PROJECT_ID":  "${BROWSERBASE_PROJECT_ID}"
+                                                    }
+                                        },
+    "stagehand":  {
+                                        "command":  "npx",
+                                        "args":  [
+                                                     "-y",
+                                                     "@browserbase/stagehand-mcp"
+                                                 ],
+                                        "env":  {
+                                                    "BROWSERBASE_API_KEY":  "${BROWSERBASE_API_KEY}",
+                                                    "BROWSERBASE_PROJECT_ID":  "${BROWSERBASE_PROJECT_ID}"
+                                                }
+                                    }
+                    }
+}

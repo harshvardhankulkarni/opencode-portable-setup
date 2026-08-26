@@ -1,0 +1,51 @@
+{
+  "plugin": [
+    "oh-my-opencode-slim"
+  ],
+  "theme": "dark",
+  "layout": {
+    "sidebarWidth": 40,
+    "showLineNumbers": true,
+    "wordWrap": true
+  },
+  "keybindings": {
+    "leader": "ctrl+space",
+    "newSession": "ctrl+n",
+    "closeSession": "ctrl+w",
+    "toggleSidebar": "ctrl+b",
+    "toggleLogs": "ctrl+l",
+    "commandPalette": "ctrl+p",
+    "search": "ctrl+f",
+    "nextTab": "ctrl+tab",
+    "prevTab": "ctrl+shift+tab"
+  },
+  "editor": {
+    "fontSize": 14,
+    "fontFamily": "JetBrains Mono, Fira Code, Consolas, monospace",
+    "tabSize": 2,
+    "insertSpaces": true,
+    "cursorBlink": true,
+    "minimap": false
+  },
+  "terminal": {
+    "shell": "bash",
+    "fontSize": 13,
+    "scrollback": 10000,
+    "cursorStyle": "block"
+  },
+  "chat": {
+    "showTimestamps": true,
+    "showTokenUsage": true,
+    "autoScroll": true,
+    "maxHistory": 1000
+  },
+  "notifications": {
+    "enabled": true,
+    "position": "bottom-right",
+    "duration": 5000
+  },
+  "animations": {
+    "enabled": true,
+    "speed": 1.0
+  }
+}

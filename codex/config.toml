@@ -1,0 +1,35 @@
+# freellmapi:start
+model = "auto"
+model_provider = "freellmapi"
+model_context_window = 1048576
+model_auto_compact_token_limit = 943718
+tool_output_token_limit = 20000
+# freellmapi:end
+
+[mcp_servers.codebase-memory-mcp]
+command = "~/.local/bin/codebase-memory-mcp.exe"
+
+[mcp_servers.firecrawl]
+type = "http"
+url = "https://mcp.firecrawl.dev/v2/mcp"
+
+[mcp_servers.firecrawl.env]
+FIRECRAWL_API_KEY = "${FIRECRAWL_API_KEY}"
+
+# >>> codebase-memory-mcp SessionStart >>>
+[[hooks.SessionStart]]
+matcher = "startup|resume|clear|compact"
+
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = 'echo "Code discovery: prefer codebase-memory-mcp (search_graph, trace_path, get_code_snippet, query_graph, search_code) over grep/file-read; run index_repository first if the project is not indexed."'
+# <<< codebase-memory-mcp SessionStart <<<
+
+# freellmapi:start
+[model_providers.freellmapi]
+name = "FreeLLMAPI"
+base_url = "http://127.0.0.1:31415/v1"
+wire_api = "responses"
+env_key = "FREELLMAPI_API_KEY"
+requires_openai_auth = false
+# freellmapi:end

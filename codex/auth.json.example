@@ -1,0 +1,11 @@
+{
+  "auth_mode": "${AUTH_MODE}",
+  "OPENAI_API_KEY": null,
+  "tokens": {
+    "id_token": "${ID_TOKEN}",
+    "access_token": "${ACCESS_TOKEN}",
+    "refresh_token": "${REFRESH_TOKEN}",
+    "account_id": "7822d654-826b-485d-8cd9-3f5efc21ddd3"
+  },
+  "last_refresh": "2026-08-03T17:22:45.764650500Z"
+}

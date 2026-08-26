@@ -1,0 +1,106 @@
+{
+  "_note": "Unified merge of config/opencode.json:mcp + config/mcp-legacy.json:mcpServers — edit to enable/disable per machine",
+  "codebase-memory-mcp": {
+    "enabled": true,
+    "type": "local",
+    "command": ["~/.local/bin/codebase-memory-mcp"],
+    "origin": "opencode.json",
+    "notes": "Windows source: C:/Users/PilzIndia/.local/bin/codebase-memory-mcp.exe — rebuild per OS"
+  },
+  "firecrawl": {
+    "type": "remote",
+    "url": "https://mcp.firecrawl.dev/v2/mcp",
+    "enabled": true,
+    "env": { "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}" },
+    "origin": "both",
+    "alt_local": { "command": ["npx", "-y", "firecrawl-mcp@latest"] }
+  },
+  "filesystem": {
+    "type": "local",
+    "command": ["npx", "@modelcontextprotocol/server-filesystem", "$HOME"],
+    "origin": "opencode.json",
+    "notes": "Update allowed dir per machine"
+  },
+  "github": {
+    "type": "local",
+    "command": ["npx", "@modelcontextprotocol/server-github"],
+    "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" },
+    "enabled": true,
+    "origin": "both"
+  },
+  "officecli": {
+    "type": "local",
+    "command": ["officecli", "mcp"],
+    "origin": "opencode.json",
+    "notes": "Windows: C:/Users/PilzIndia/bin/officecli.exe — install via https://github.com/.../officecli"
+  },
+  "playwright": {
+    "type": "local",
+    "command": ["npx", "@playwright/mcp"],
+    "origin": "both",
+    "alt": ["npx", "-y", "@playwright/mcp@latest"]
+  },
+  "twos-io": {
+    "type": "local",
+    "command": ["npx", "@2sio/mcp"],
+    "env": { "TWOS_TRIAL": "1" },
+    "origin": "opencode.json"
+  },
+  "correctover": {
+    "type": "local",
+    "command": ["npx", "correctover-mcp-server"],
+    "origin": "opencode.json"
+  },
+  "context7": {
+    "command": ["npx", "-y", "@upstash/context7-mcp"],
+    "origin": "mcp-legacy.json"
+  },
+  "vercel": {
+    "command": ["npx", "-y", "@vercel/mcp-server"],
+    "env": { "VERCEL_TOKEN": "${VERCEL_TOKEN}" },
+    "origin": "mcp-legacy.json"
+  },
+  "linear": {
+    "command": ["npx", "-y", "@linear/mcp-server"],
+    "env": { "LINEAR_API_KEY": "${LINEAR_API_KEY}" },
+    "origin": "mcp-legacy.json"
+  },
+  "sentry": {
+    "command": ["npx", "-y", "@sentry/mcp-server"],
+    "env": { "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}" },
+    "origin": "mcp-legacy.json"
+  },
+  "sequential-thinking": {
+    "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+    "origin": "mcp-legacy.json"
+  },
+  "e2b": {
+    "command": ["npx", "-y", "@e2b/mcp-server"],
+    "env": { "E2B_API_KEY": "${E2B_API_KEY}" },
+    "origin": "mcp-legacy.json"
+  },
+  "supabase": {
+    "command": ["npx", "-y", "@supabase/mcp-server"],
+    "env": { "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}" },
+    "origin": "mcp-legacy.json"
+  },
+  "browser": {
+    "command": ["npx", "-y", "@browsermcp/mcp@latest"],
+    "origin": "mcp-legacy.json"
+  },
+  "skyvern": {
+    "command": ["npx", "-y", "@skyvern/mcp-server"],
+    "env": { "SKYVERN_API_KEY": "${SKYVERN_API_KEY}" },
+    "origin": "mcp-legacy.json"
+  },
+  "browserbase": {
+    "command": ["npx", "-y", "@browserbase/mcp-server"],
+    "env": { "BROWSERBASE_API_KEY": "${BROWSERBASE_API_KEY}", "BROWSERBASE_PROJECT_ID": "${BROWSERBASE_PROJECT_ID}" },
+    "origin": "mcp-legacy.json"
+  },
+  "stagehand": {
+    "command": ["npx", "-y", "@browserbase/stagehand-mcp"],
+    "env": { "BROWSERBASE_API_KEY": "${BROWSERBASE_API_KEY}", "BROWSERBASE_PROJECT_ID": "${BROWSERBASE_PROJECT_ID}" },
+    "origin": "mcp-legacy.json"
+  }
+}

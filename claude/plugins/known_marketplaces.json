@@ -1,0 +1,27 @@
+{
+  "claude-plugins-official": {
+    "source": {
+      "source": "github",
+      "repo": "anthropics/claude-plugins-official"
+    },
+    "installLocation": "C:\\Users\\PilzIndia\\.claude\\plugins\\marketplaces\\claude-plugins-official",
+    "lastUpdated": "2026-08-25T08:02:58.330Z"
+  },
+  "thedotmack": {
+    "source": {
+      "source": "github",
+      "repo": "thedotmack/claude-mem"
+    },
+    "installLocation": "C:\\Users\\PilzIndia\\.claude\\plugins\\marketplaces\\thedotmack",
+    "lastUpdated": "2026-08-25T08:02:44.282Z",
+    "autoUpdate": true
+  },
+  "ecc": {
+    "source": {
+      "source": "git",
+      "url": "https://github.com/affaan-m/ECC.git"
+    },
+    "installLocation": "C:\\Users\\PilzIndia\\.claude\\plugins\\marketplaces\\ecc",
+    "lastUpdated": "2026-08-25T15:57:48.622Z"
+  }
+}

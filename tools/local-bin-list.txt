@@ -1,0 +1,10 @@
+total 261M
+-rwxr-xr-x 1 PilzIndia 197609 261M Aug  5 14:25 codebase-memory-mcp.exe
+-rw-r--r-- 1 PilzIndia 197609   33 Aug  8 21:45 forge.bat
+-rwxr-xr-x 1 PilzIndia 197609  45K Aug 24 22:28 graphify-mcp.exe
+-rwxr-xr-x 1 PilzIndia 197609  45K Aug 24 22:28 graphify.exe
+-rw-r--r-- 1 PilzIndia 197609   31 Aug  6 21:37 jay.bat
+-rwxr-xr-x 1 PilzIndia 197609  45K Jun 22 21:57 nano-pdf.exe
+-rwxr-xr-x 1 PilzIndia 197609  45K Jun 13 15:46 python3.11.exe
+-rwxr-xr-x 1 PilzIndia 197609  45K Jul 31 05:08 specify.exe
+-rw-r--r-- 1 PilzIndia 197609   32 Aug  6 21:38 wolf.bat

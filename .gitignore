@@ -1,0 +1,64 @@
+# Secrets — never commit
+.env
+.env.local
+*.key
+*.pem
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+service.json
+supabase-mcp-config.json
+**/keys.json
+**/keys.csv
+**/.credentials.json
+**/auth.json
+claude/.credentials.json
+codex/auth.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node
+node_modules/
+npm-debug.log*
+bun.lockb
+.pnp.*
+
+# Build
+dist/
+.next/
+out/
+build/
+
+# Opencode / Claude local state
+.opencode-cache/
+*.backup-*
+.claude/projects/
+.claude/session-data/
+.claude/sessions/
+.claude/cache/
+.claude/telemetry/
+.opencode/
+
+# OmniRoute runtime DB ( regenerated on install )
+omniroute/storage.sqlite*
+omniroute/logs/
+omniroute/call_logs/
+omniroute/db_backups/
+omniroute/runtime/
+
+# Qwen/Gemini local caches
+.qwen/cache/
+.gemini/cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Binaries (platform specific, rebuilt on install)
+tools/local-binaries/*.exe
+tools/local-binaries/*.bin

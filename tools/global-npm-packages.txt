@@ -1,0 +1,21 @@
+C:\Users\PilzIndia\AppData\Roaming\npm
++-- @anthropic-ai/claude-code@2.1.241
++-- @kilocode/cli@7.3.45
++-- @opencode-ai/cli@0.0.0-beta-18155
++-- @playwright/cli@0.1.18
++-- agent-browser@0.29.1
++-- bobshell@1.0.4
++-- bun@1.3.14
++-- firecrawl-cli@1.20.0
++-- freellmapi@0.5.0  # was 0.4.0 at capture time (npx cache e995436d190f44dd) -> upgrade to 0.5.0 latest
++-- npm@11.13.0
++-- omniroute@3.8.49
++-- openclaw@2026.6.9
++-- opencode-ai@1.18.23
++-- pnpm@11.20.0
++-- ruflo@3.10.46
++-- sass@1.101.0
++-- skills@1.5.21 -> .\..\..\..\skills
++-- vercel@54.18.5
++-- zcatalyst-cli@1.25.3
+`-- zoho-extension-toolkit@1.0.28

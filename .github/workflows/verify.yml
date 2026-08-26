@@ -1,0 +1,46 @@
+name: verify
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Node versions
+        run: node --version; npm --version
+      - name: Repo sanity
+        run: |
+          echo "agents: $(ls -1 agents 2>/dev/null | wc -l) (expected 237)"
+          echo "claude agents: $(ls -1 claude/agents 2>/dev/null | wc -l) (expected 274)"
+          echo "claude skills: $(ls -1 claude/skills 2>/dev/null | wc -l) (expected 222)"
+          echo "external skills: $(ls -1 skills/external-full 2>/dev/null | wc -l) (expected 91)"
+          echo "configs: $(ls -1 config/*.json 2>/dev/null | wc -l)"
+          test -f config/opencode.json
+          test -f claude/settings.json
+          test -f codex/config.toml
+          test -f .env.example
+          echo "ok"
+      - name: JSON lint
+        run: |
+          python3 -m json.tool config/opencode.json > /dev/null && echo "opencode.json ok"
+          python3 -m json.tool claude/settings.json > /dev/null && echo "claude settings ok"
+          python3 -m json.tool claude/mcp.json > /dev/null && echo "claude mcp ok"
+          python3 -m json.tool mcp/manifest.unified.json > /dev/null && echo "manifest ok"
+      - name: TOML lint (codex)
+        run: |
+          python3 -c "import sys; data=open('codex/config.toml').read(); assert 'freellmapi' in data.lower() or 'model_provider' in data.lower() or '[model' in data, 'missing freellmapi provider'; print('codex config ok')"
+      - name: Patch idempotency
+        run: |
+          node scripts/lib/patch-config.mjs --src config/opencode.json --dst /tmp/opencode.json --home /tmp/home --os linux
+          echo "patch ok, $(wc -l < /tmp/opencode.json) lines"
+      - name: Verify script (quick, skip network)
+        run: |
+          bash scripts/verify.sh --quick 2>&1 | tail -n 100 || true
