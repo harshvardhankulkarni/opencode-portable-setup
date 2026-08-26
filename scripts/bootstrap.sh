@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # bootstrap.sh — curl|bash one-liner for Linux/macOS
-# Usage: curl -fsSL https://raw.githubusercontent.com/<YOU>/opencode-portable-setup/main/scripts/bootstrap.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/harshvardhankulkarni/opencode-portable-setup/main/scripts/bootstrap.sh | bash
 set -e
-REPO_URL="https://github.com/<YOU>/opencode-portable-setup.git"
+REPO_URL="undefined"
 DEST="$HOME/opencode-portable-setup"
 if [ -n "${1:-}" ]; then REPO_URL="$1"; fi
 echo "[bootstrap] cloning $REPO_URL -> $DEST"

@@ -13,7 +13,7 @@ Repo size: **~65 MB** (gstack 510 MB binaries pruned, see `claude/skills/gstack/
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/<YOU>/opencode-portable-setup.git
+git clone undefined
 cd opencode-portable-setup
 Copy-Item .env.example .env    # <- fill keys (see below)
 notepad .env                   # GITHUB_TOKEN, FIRECRAWL_API_KEY, FREELLMAPI_API_KEY, ANTHROPIC_AUTH_TOKEN, OMNIROUTE_API_KEY
@@ -31,7 +31,7 @@ claude                           # -> FreeLLMAPI auto
 ### macOS / Linux
 
 ```bash
-git clone https://github.com/<YOU>/opencode-portable-setup.git
+git clone undefined
 cd opencode-portable-setup
 cp .env.example .env && nano .env
 # also:
@@ -50,9 +50,9 @@ claude
 
 ```bash
 # Linux/macOS
-curl -fsSL https://raw.githubusercontent.com/<YOU>/opencode-portable-setup/main/scripts/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/harshvardhankulkarni/opencode-portable-setup/main/scripts/bootstrap.sh | bash
 # Windows
-irm https://raw.githubusercontent.com/<YOU>/opencode-portable-setup/main/scripts/bootstrap.ps1 | iex
+irm https://raw.githubusercontent.com/harshvardhankulkarni/opencode-portable-setup/main/scripts/bootstrap.ps1 | iex
 ```
 
 ---
@@ -62,7 +62,7 @@ irm https://raw.githubusercontent.com/<YOU>/opencode-portable-setup/main/scripts
 ```
 You are on a fresh machine. Clone and install my full workstation:
 
-1. git clone https://github.com/<YOU>/opencode-portable-setup.git && cd opencode-portable-setup
+1. git clone undefined && cd opencode-portable-setup
 2. Read README.md, docs/INVENTORY.md, docs/INSTALL.md, docs/ENV_VARS.md, docs/MCP.md, mcp/README.md, freellmapi/README.md, claude/settings.json, codex/config.toml
 3. Run the installer:
    - Windows: powershell -ExecutionPolicy Bypass -File scripts/install.ps1 -Verbose
@@ -234,4 +234,4 @@ MIT — see `LICENSE`. Secrets are **never** committed.
 
 Built from Harsh's live Windows workstation 2026-08-26. Pruned `claude/skills/gstack` binaries for size — see `BINARIES_EXCLUDED.md`; rebuilt via `npm run build` after install.
 
-> After `gh repo create`, replace `<YOU>` with your GitHub handle everywhere (`README`, `scripts/bootstrap.*`).
+> After `gh repo create`, replace `harshvardhankulkarni` with your GitHub handle everywhere (`README`, `scripts/bootstrap.*`).
