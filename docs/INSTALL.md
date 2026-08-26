@@ -21,14 +21,14 @@ node --version; npm --version; bun --version; git --version; gh --version
 ## 2. Clone
 
 ```bash
-git clone undefined
+git clone https://github.com/harshvardhankulkarni/opencode-portable-setup.git
 cd opencode-portable-setup
 ```
 
 On Windows:
 
 ```powershell
-git clone undefined
+git clone https://github.com/harshvardhankulkarni/opencode-portable-setup.git
 cd opencode-portable-setup
 ```
 
