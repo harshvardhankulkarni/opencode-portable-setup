@@ -39,7 +39,7 @@ $cc="$env:USERPROFILE\.claude"
 if(Test-Path "$cc\settings.json"){ Ok "claude/settings.json" } else { Bad "claude/settings.json missing"}
 if(Test-Path "$cc\.mcp.json"){ Ok "claude/.mcp.json" } else { Wrn "claude/.mcp.json missing"}
 $cnt=(Get-ChildItem "$cc\agents" -File -ErrorAction SilentlyContinue | Measure-Object).Count; if($cnt -ge 100){ Ok "claude agents: $cnt"} else { Wrn "claude agents low: $cnt (expected 274)"}
-$cnt=(Get-ChildItem "$cc\skills" -Directory -ErrorAction SilentlyContinue | Measure-Object).Count; if($cnt -ge 100){ Ok "claude skills: $cnt dirs"} else { Wrn "claude skills low: $cnt"}
+$cnt=(Get-ChildItem "$cc\skills" -Directory -ErrorAction SilentlyContinue | Measure-Object).Count; if($cnt -ge 180){ Ok "claude skills: $cnt dirs (expected 222)"} else { if($cnt -ge 100){ Wrn "claude skills low: $cnt (expected 222, gstack pruned?)"} else { Wrn "claude skills low: $cnt"} }
 if(Test-Path "$cc\hooks"){ Ok "claude hooks"} else { Wrn "claude hooks missing"}
 if(Test-Path "$cc\commands"){ Ok "claude commands"} else { Wrn "claude commands missing"}
 if(Select-String -Path "$cc\settings.json" -Pattern "31415" -Quiet -ErrorAction SilentlyContinue){ Ok "claude ANTHROPIC_BASE_URL -> freellmapi :31415"} else { Wrn "claude not wired to freellmapi"}

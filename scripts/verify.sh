@@ -56,7 +56,7 @@ CC_DIR="$HOME/.claude"
 [[ -f "$CC_DIR/settings.json" ]] && ok "claude/settings.json" || bad "claude/settings.json missing"
 [[ -f "$CC_DIR/.mcp.json" ]] && ok "claude/.mcp.json" || wrn "claude/.mcp.json missing"
 cnt=$(ls -1 "$CC_DIR/agents" 2>/dev/null | wc -l | tr -d ' '); [[ "$cnt" -ge 100 ]] && ok "claude agents: $cnt" || wrn "claude agents low: $cnt (expected 274)"
-cnt=$(find "$CC_DIR/skills" -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' '); [[ "$cnt" -ge 100 ]] && ok "claude skills: $cnt dirs" || wrn "claude skills low: $cnt"
+cnt=$(ls -1 "$CC_DIR/skills" 2>/dev/null | wc -l | tr -d ' '); if [[ "$cnt" -ge 180 ]]; then ok "claude skills: $cnt dirs (expected 222)"; elif [[ "$cnt" -ge 100 ]]; then wrn "claude skills low: $cnt (expected 222, gstack pruned?)"; else wrn "claude skills low: $cnt (expected 222)"; fi
 [[ -d "$CC_DIR/hooks" ]] && ok "claude hooks" || wrn "claude hooks missing"
 [[ -d "$CC_DIR/commands" ]] && ok "claude commands" || wrn "claude commands missing"
 if grep -q "ANTHROPIC_BASE_URL.*31415" "$CC_DIR/settings.json" 2>/dev/null; then ok "claude ANTHROPIC_BASE_URL -> freellmapi :31415"; else wrn "claude not wired to freellmapi (check settings.json env)"; fi
