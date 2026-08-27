@@ -1,4 +1,4 @@
-# Inventory — Source Machine Snapshot (2026-08-26)
+# Inventory — Source Machine Snapshot (2026-08-27)
 
 > Windows 11 — user PilzIndia — `C:/Users/PilzIndia` — full workstation clone (opencode + Claude Code + Codex + OmniRoute + FreeLLMAPI).
 
