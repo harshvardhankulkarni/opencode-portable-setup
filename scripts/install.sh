@@ -463,6 +463,50 @@ else
 fi
 
 
+# --- 11c. Qwen / KiloCode / Gemini ---
+log "11c/13 Qwen / KiloCode / Gemini"
+if [[ -d "$REPO_DIR/qwen/skills" ]]; then
+  mkdir -p "$HOME/.qwen"
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a "$REPO_DIR/qwen/skills/" "$HOME/.qwen/skills/" 2>&1 | head -n 5 || true
+  else
+    mkdir -p "$HOME/.qwen/skills"
+    cp -a "$REPO_DIR/qwen/skills/"* "$HOME/.qwen/skills/" 2>/dev/null || cp -r "$REPO_DIR/qwen/skills/"* "$HOME/.qwen/skills/" 2>/dev/null || true
+  fi
+  cnt=$(find "$HOME/.qwen/skills" -type f 2>/dev/null | wc -l | tr -d " ")
+  ok "  qwen skills -> $HOME/.qwen/skills ($cnt files)"
+  if [[ -f "$REPO_DIR/qwen/settings.json.example" ]]; then
+    if [[ ! -f "$HOME/.qwen/settings.json" ]] || $FORCE; then
+      mkdir -p "$HOME/.qwen"
+      cp "$REPO_DIR/qwen/settings.json.example" "$HOME/.qwen/settings.json" 2>/dev/null || true
+      ok "  qwen settings.json"
+    fi
+  fi
+fi
+if [[ -d "$REPO_DIR/kilocode/skills" ]]; then
+  mkdir -p "$HOME/.kilocode"
+  if command -v rsync >/dev/null 2>&1; then
+    rsync -a "$REPO_DIR/kilocode/skills/" "$HOME/.kilocode/skills/" 2>&1 | head -n 5 || true
+  else
+    mkdir -p "$HOME/.kilocode/skills"
+    cp -a "$REPO_DIR/kilocode/skills/"* "$HOME/.kilocode/skills/" 2>/dev/null || cp -r "$REPO_DIR/kilocode/skills/"* "$HOME/.kilocode/skills/" 2>/dev/null || true
+  fi
+  ok "  kilocode skills -> $HOME/.kilocode/skills ($(find "$HOME/.kilocode/skills" -type f 2>/dev/null | wc -l | tr -d " ") files)"
+fi
+if [[ -d "$REPO_DIR/kilocode/rules" ]]; then
+  mkdir -p "$HOME/.kilocode/rules"
+  cp -a "$REPO_DIR/kilocode/rules/"* "$HOME/.kilocode/rules/" 2>/dev/null || cp -r "$REPO_DIR/kilocode/rules/"* "$HOME/.kilocode/rules/" 2>/dev/null || true
+  ok "  kilocode rules -> $HOME/.kilocode/rules"
+fi
+if [[ -d "$REPO_DIR/gemini/config" ]]; then
+  mkdir -p "$HOME/.gemini/config"
+  cp -a "$REPO_DIR/gemini/config/"* "$HOME/.gemini/config/" 2>/dev/null || cp -r "$REPO_DIR/gemini/config/"* "$HOME/.gemini/config/" 2>/dev/null || true
+  ok "  gemini config -> $HOME/.gemini/config"
+fi
+if [[ -f "$REPO_DIR/gemini/GEMINI.md" && -s "$REPO_DIR/gemini/GEMINI.md" ]]; then
+  mkdir -p "$HOME/.gemini"
+  cp "$REPO_DIR/gemini/GEMINI.md" "$HOME/.gemini/GEMINI.md" 2>/dev/null || true
+fi
 # --- 12. FreeLLMAPI wiring ---
 log "12/13 FreeLLMAPI wiring (:31415) — runs npx freellmapi setup-* if installed"
 FREELLM_OK=false
