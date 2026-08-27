@@ -85,6 +85,26 @@ if curl -sf http://127.0.0.1:31415/v1/models >/dev/null 2>&1 || curl -sf http://
 if grep -q "ANTHROPIC_AUTH_TOKEN" "$CC_DIR/settings.json" 2>/dev/null; then ok "ANTHROPIC_AUTH_TOKEN in claude settings"; else wrn "ANTHROPIC_AUTH_TOKEN missing"; fi
 if grep -q "FREELLMAPI_API_KEY" "$OC_DIR/opencode.json" 2>/dev/null || grep -q "FREELLMAPI_API_KEY" "$HOME/.codex/config.toml" 2>/dev/null; then ok "FREELLMAPI_API_KEY referenced in configs"; else info "FREELLMAPI_API_KEY — check .env"; fi
 
+# --- freellmapi-keys.json bundle ---
+echo ""; echo "## freellmapi-keys.json (21 providers)"
+KEYS_CAND=""
+for cand in "./freellmapi-keys.json" "./freellmapi/keys.json" "$HOME/freellmapi-keys.json" "$HOME/Desktop/freellmapi-keys.json" "$HOME/.freellmapi/keys.json"; do
+  if [[ -f "$cand" ]]; then KEYS_CAND="$cand"; break; fi
+done
+if [[ -n "$KEYS_CAND" ]]; then
+  ok "freellmapi-keys.json: $KEYS_CAND"
+  if command -v node >/dev/null 2>&1; then
+    if [[ -f "./scripts/lib/import-freellmapi-keys.mjs" ]]; then
+      node ./scripts/lib/import-freellmapi-keys.mjs --check "$KEYS_CAND" 2>&1 | sed "s/^/  /"
+    fi
+  fi
+else
+  wrn "freellmapi-keys.json not found — upload your bundle to ./freellmapi-keys.json (gitignored)"
+  echo "   cp ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json && node scripts/lib/import-freellmapi-keys.mjs --check"
+  echo "   Docs: docs/FREELLMAPI_KEYS.md  Template: freellmapi/keys.json.example"
+fi
+
+
 # --- env ---
 echo ""; echo "## Environment (.env)"
 if [[ -f ".env" ]] || [[ -f "$HOME/opencode-portable-setup/.env" ]] || [[ -f "./.env" ]]; then ok ".env present"; else wrn ".env missing — copy from .env.example and fill tokens"; fi

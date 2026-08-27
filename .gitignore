@@ -62,3 +62,11 @@ omniroute/runtime/
 # Binaries (platform specific, rebuilt on install)
 tools/local-binaries/*.exe
 tools/local-binaries/*.bin
+
+# Allow committed examples (real keys are gitignored above, examples are tracked)
+!**/keys.json.example
+!**/keys.csv.example
+!freellmapi/keys.json.example
+!freellmapi/keys.csv.example
+# NOTE: freellmapi/keys.json is gitignored by **/keys.json — but the REPO holds only .example.
+# On a NEW machine, copy your REAL freellmapi-keys.json to ./freellmapi-keys.json or ./freellmapi/keys.json (both gitignored)

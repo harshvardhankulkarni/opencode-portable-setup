@@ -57,6 +57,20 @@ try{ $r=Invoke-WebRequest -Uri http://127.0.0.1:20128/v1/models -TimeoutSec 2 -U
 Write-Host "`n## FreeLLMAPI (port 31415)"
 try{ Invoke-WebRequest -Uri http://127.0.0.1:31415/v1/models -TimeoutSec 2 -UseBasicParsing -ErrorAction Stop | Out-Null; Ok "freellmapi :31415 reachable"}catch{ Wrn "freellmapi :31415 not reachable — npx freellmapi serve  (check FREELLMAPI_API_KEY)"}
 
+Write-Host "`n## freellmapi-keys.json (21 providers)"
+$KeysCand=$null
+foreach($cand in @("./freellmapi-keys.json","./freellmapi/keys.json","$env:USERPROFILE/freellmapi-keys.json","$env:USERPROFILE/Desktop/freellmapi-keys.json","$env:USERPROFILE/.freellmapi/keys.json")){
+  if(Test-Path $cand){ $KeysCand=$cand; break }
+}
+if($KeysCand){
+  Ok "freellmapi-keys.json: $KeysCand"
+  try{ node ./scripts/lib/import-freellmapi-keys.mjs --check $KeysCand 2>&1 | ForEach-Object { Write-Host "  $_" } }catch{}
+} else {
+  Wrn "freellmapi-keys.json not found — upload your bundle to ./freellmapi-keys.json (gitignored)"
+  Write-Host "   Copy-Item ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json; node scripts/lib/import-freellmapi-keys.mjs --check" -ForegroundColor Yellow
+}
+
+
 Write-Host "`n## Environment (.env)"
 $envFile="$PSScriptRoot\..\.env"; if(-not (Test-Path $envFile)){ $envFile="$env:USERPROFILE\opencode-portable-setup\.env"}
 if(Test-Path ".env" -or Test-Path $envFile){ Ok ".env present"} else { Wrn ".env missing — copy from .env.example"}

@@ -18,9 +18,11 @@ cd opencode-portable-setup
 Copy-Item .env.example .env    # <- fill keys (see below)
 notepad .env                   # GITHUB_TOKEN, FIRECRAWL_API_KEY, FREELLMAPI_API_KEY, ANTHROPIC_AUTH_TOKEN, OMNIROUTE_API_KEY
 notepad $HOME\.omniroute\.env  # STORAGE_ENCRYPTION_KEY / JWT_SECRET / API_KEY_SECRET / INITIAL_PASSWORD (from omniroute/.env.example)
+Copy-Item freellmapi-keys.json ./freellmapi-keys.json  # <- your 21-provider bundle (upload here, gitignored) — see docs/FREELLMAPI_KEYS.md
+node scripts/lib/import-freellmapi-keys.mjs --check  # validates 21 keys (masked, never prints raw)
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\scripts\install.ps1            # add -Force to overwrite, -Latest to float versions, -Verbose for logs
-.\scripts\verify.ps1             # health check (versions, 510 agents, MCP, :20128, :31415, env)
+.\scripts\verify.ps1             # health check (versions, 510 agents, MCP, :20128, :31415, env, + freellmapi-keys 21)
 # start gateways in separate terminals:
 omniroute                        # :20128 dashboard
 npx freellmapi serve --port 31415
@@ -36,9 +38,11 @@ cd opencode-portable-setup
 cp .env.example .env && nano .env
 # also:
 cp omniroute/.env.example ~/.omniroute/.env && nano ~/.omniroute/.env
+cp ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json  # <- your 21-provider bundle (gitignored)
+node scripts/lib/import-freellmapi-keys.mjs --check  # validates 21 keys (masked, never prints raw)
 chmod +x scripts/install.sh scripts/verify.sh
 ./scripts/install.sh             # --force / --latest / --verbose
-./scripts/verify.sh
+./scripts/verify.sh              # also checks freellmapi-keys 21
 # gateways:
 omniroute &                      # :20128
 npx freellmapi serve --port 31415 &
@@ -69,6 +73,7 @@ You are on a fresh machine. Clone and install my full workstation:
    - Linux/macOS: bash scripts/install.sh --verbose
    It backs up any existing ~/.config/opencode, ~/.claude, ~/.codex, ~/.omniroute, ~/.agents/skills
 4. Ensure .env is created from .env.example — prompt the human for missing keys (GITHUB_TOKEN, FIRECRAWL_API_KEY, FREELLMAPI_API_KEY, ANTHROPIC_AUTH_TOKEN, OMNIROUTE_API_KEY, STORAGE_ENCRYPTION_KEY etc). Never hardcode secrets. Also ensure ~/.omniroute/.env from omniroute/.env.example.
+   Also: freellmapi-keys.json — this is the 21-provider bundle the user will upload (to ./freellmapi-keys.json or ./freellmapi/keys.json, both gitignored). Validate with `node scripts/lib/import-freellmapi-keys.mjs --check` (masked). If missing, warn and point to docs/FREELLMAPI_KEYS.md.
 5. Patch paths: installer auto-rewrites Windows hardcoded paths (C:/Users/PilzIndia/...) -> $HOME/.local/bin etc via scripts/lib/patch-config.mjs. If a local binary (codebase-memory-mcp.exe, officecli.exe, graphify) is missing, report which MCP will be disabled and where to get it (tools/local-binaries/README.md + mcp/manifest.unified.json).
 6. Restore:
    - opencode: 237 agents -> ~/.config/opencode/agents/, 14 managed skills -> ~/.config/opencode/skills/, 91 external -> ~/.agents/skills/, 33 firecrawl symlinks, skill-lock + oh-my manifest, npm install ponytail+plugin, pinned globals (opencode-ai@1.18.23, @opencode-ai/cli, etc.)
@@ -122,7 +127,8 @@ Do not skip steps. Do not invent configs. All real secrets are in .env (gitignor
 ├── freellmapi/              # FreeLLMAPI :31415 (central gateway for Claude/Codex/Opencode/Qwen)
 │   ├── README.md            # wiring table, install, setup-* commands, troubleshooting
 │   ├── package.json         # freellmapi 0.4.0 (npx cache) — latest 0.5.0
-│   └── keys.{json,csv}.example # redacted templates of Desktop freellmapi-keys.*
+│   ├── keys.{json,csv}.example # redacted templates (21 providers)
+│   └── (on new machine) freellmapi-keys.json — your REAL 21-key bundle (upload here, gitignored) — see docs/FREELLMAPI_KEYS.md
 ├── gemini/ qwen/ kilocode/  # stubs + source-layout + sanitized settings/.env examples
 ├── mcp/
 │   ├── README.md            # live vs legacy + portability notes
@@ -158,8 +164,9 @@ nano ~/.omniroute/.env
 
 | Variable | Used in | Required | Get |
 |----------|---------|----------|-----|
-| `FREELLMAPI_API_KEY` | opencode `freellmapi` provider, codex `env_key`, freellmapi gateway | **yes** | your FreeLLMAPI dashboard — FreeLLMAPI `freellmapi-keys.*` on source Desktop (not committed; redacted examples in `freellmapi/`) |
+| `FREELLMAPI_API_KEY` | opencode `freellmapi` provider, codex `env_key`, freellmapi gateway | **yes** | your FreeLLMAPI dashboard — see `docs/FREELLMAPI_KEYS.md` (per-provider where-to-get) + 21-key `freellmapi-keys.json` bundle |
 | `ANTHROPIC_AUTH_TOKEN` | Claude Code `~/.claude/settings.json` env | **yes** | same gateway token as above but as `freellmapi-...` — written by `npx freellmapi setup-claude` |
+| `freellmapi-keys.json` | 21 provider keys (agnes/aion/bai/cerebras/cloudflare/github/google/groq/huggingface/llm7/nvidia/ollama/opencode/openrouter/orcarouter/pollinations/reka/requesty/routeway/siliconflow/zhipu) | **yes** for 70+ models | upload your real `freellmapi-keys.json` to `./freellmapi-keys.json` (gitignored) — `node scripts/lib/import-freellmapi-keys.mjs --check` — full per-provider table in `docs/FREELLMAPI_KEYS.md` |
 | `GITHUB_TOKEN` | mcp.github (`npx @modelcontextprotocol/server-github`) | yes for github MCP | https://github.com/settings/tokens — scopes `repo workflow read:org gist` or `gh auth login` |
 | `FIRECRAWL_API_KEY` | mcp.firecrawl (`https://mcp.firecrawl.dev/v2/mcp`) in opencode+claude+codex | yes for firecrawl | https://firecrawl.dev → API keys |
 | `OMNIROUTE_API_KEY` | opencode provider `omniroute` | if using omniroute | your OmniRoute instance (local `omniroute` dashboard → API keys) |

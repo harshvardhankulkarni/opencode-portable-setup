@@ -435,6 +435,34 @@ else
   warn "  omniroute/.env.example missing in repo"
 fi
 
+# --- 11b. freellmapi-keys.json bundle (21 providers) ---
+log "11b/13 freellmapi-keys.json (21 providers)"
+KEYS_FOUND=""
+for cand in "./freellmapi-keys.json" "./freellmapi/keys.json" "$HOME/freellmapi-keys.json" "$HOME/Desktop/freellmapi-keys.json" "$HOME/.freellmapi/keys.json" "$REPO_DIR/freellmapi-keys.json" "$REPO_DIR/freellmapi/keys.json"; do
+  if [[ -f "$cand" ]]; then KEYS_FOUND="$cand"; break; fi
+done
+if [[ -n "$KEYS_FOUND" ]]; then
+  ok "  found $KEYS_FOUND"
+  if command -v node >/dev/null 2>&1; then
+    if [[ -f "$REPO_DIR/scripts/lib/import-freellmapi-keys.mjs" ]]; then
+      node "$REPO_DIR/scripts/lib/import-freellmapi-keys.mjs" --check "$KEYS_FOUND" 2>&1 | sed "s/^/  /" || warn "  keys check warnings"
+    fi
+  fi
+  if [[ "$KEYS_FOUND" != "$REPO_DIR/freellmapi-keys.json" && "$KEYS_FOUND" != "$REPO_DIR/freellmapi/keys.json" ]]; then
+    mkdir -p "$REPO_DIR/freellmapi" 2>/dev/null || true
+    cp "$KEYS_FOUND" "$REPO_DIR/freellmapi/keys.json" 2>/dev/null || true
+    if [[ ! -f "$REPO_DIR/freellmapi-keys.json" ]]; then cp "$KEYS_FOUND" "$REPO_DIR/freellmapi-keys.json" 2>/dev/null || true; fi
+    ok "  copied to ./freellmapi-keys.json (gitignored)"
+  fi
+else
+  warn "  freellmapi-keys.json not found — upload your 21-provider bundle to use all 70+ models"
+  echo "   cp ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json   # or ./freellmapi/keys.json (both gitignored)"
+  echo "   node scripts/lib/import-freellmapi-keys.mjs --check          # validates 21 keys (masked)"
+  echo "   Docs: docs/FREELLMAPI_KEYS.md — per-provider where-to-get (21 rows)"
+  echo "   Template: freellmapi/keys.json.example (redacted)"
+fi
+
+
 # --- 12. FreeLLMAPI wiring ---
 log "12/13 FreeLLMAPI wiring (:31415) — runs npx freellmapi setup-* if installed"
 FREELLM_OK=false

@@ -308,6 +308,29 @@ if(-not (Test-Path $omniEnvDst) -and (Test-Path $omniEnvSrc)){
 } elseif(Test-Path $omniEnvDst){ Ok "  ~/.omniroute/.env exists" }
 else { Wrn "  omniroute/.env.example missing in repo" }
 
+# 11b. freellmapi-keys.json bundle (21 providers)
+Log "11b/13 freellmapi-keys.json (21 providers)"
+$KeysFound = $null
+foreach($cand in @("./freellmapi-keys.json","./freellmapi/keys.json","$env:USERPROFILE/freellmapi-keys.json","$env:USERPROFILE/Desktop/freellmapi-keys.json","$env:USERPROFILE/.freellmapi/keys.json", (Join-Path $RepoDir "freellmapi-keys.json"), (Join-Path $RepoDir "freellmapi/keys.json"))){
+  if(Test-Path $cand){ $KeysFound = $cand; break }
+}
+if($KeysFound){
+  Ok "  found $KeysFound"
+  if((Get-Command node -ErrorAction SilentlyContinue) -and (Test-Path (Join-Path $RepoDir "scripts/lib/import-freellmapi-keys.mjs"))){
+    try{ node (Join-Path $RepoDir "scripts/lib/import-freellmapi-keys.mjs") --check $KeysFound 2>&1 | ForEach-Object { Write-Host "  $_" } }catch{ Wrn "  keys check warnings" }
+  }
+  if($KeysFound -ne (Join-Path $RepoDir "freellmapi-keys.json") -and $KeysFound -ne (Join-Path $RepoDir "freellmapi/keys.json")){
+    try{ Copy-Item $KeysFound (Join-Path $RepoDir "freellmapi/keys.json") -Force -ErrorAction SilentlyContinue; Ok "  copied to ./freellmapi/keys.json"}catch{}
+    if(-not (Test-Path (Join-Path $RepoDir "freellmapi-keys.json"))){ try{ Copy-Item $KeysFound (Join-Path $RepoDir "freellmapi-keys.json") -Force -ErrorAction SilentlyContinue }catch{} }
+  }
+} else {
+  Wrn "  freellmapi-keys.json not found — upload your 21-provider bundle to use all 70+ models"
+  Write-Host "   Copy-Item ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json   # or ./freellmapi/keys.json (both gitignored)" -ForegroundColor Yellow
+  Write-Host "   node scripts/lib/import-freellmapi-keys.mjs --check          # validates 21 keys (masked)" -ForegroundColor Yellow
+  Write-Host "   Docs: docs/FREELLMAPI_KEYS.md — per-provider where-to-get (21 rows)" -ForegroundColor Yellow
+}
+
+
 # 12. FreeLLMAPI wiring
 Log "12/12 FreeLLMAPI wiring (:31415) — runs npx freellmapi setup-* if freellmapi installed"
 $freellmInPath = Get-Command freellmapi -ErrorAction SilentlyContinue

@@ -80,6 +80,21 @@ Get-Content ~/opencode-portable-setup/.env | ForEach-Object {
 }
 ```
 
+
+## freellmapi-keys.json — 21 provider keys bundle
+
+Your real keys live in `freellmapi-keys.json` (gitignored) — **not** in `.env`. `.env` holds only the *gateway* auth (`FREELLMAPI_API_KEY` / `ANTHROPIC_AUTH_TOKEN`). The bundle holds *per-provider* upstream keys (agnes, aion, bai, cerebras, cloudflare, github, google, groq, huggingface, llm7, nvidia, ollama, opencode, openrouter, orcarouter, pollinations, reka, requesty, routeway, siliconflow, zhipu).
+
+On a new machine:
+
+```bash
+cp ~/Downloads/freellmapi-keys.json ./freellmapi-keys.json  # or ./freellmapi/keys.json — both gitignored
+node scripts/lib/import-freellmapi-keys.mjs --check        # validates 21 keys (masked)
+# optionally: node scripts/lib/import-freellmapi-keys.mjs --export-env >> .env
+```
+
+Full per-provider table: where each key comes from, prefix, and link — see `docs/FREELLMAPI_KEYS.md`. Template (redacted) is `freellmapi/keys.json.example`.
+
 ## Where to fill on a new machine
 
 1. `cp .env.example .env` at repo root — fill `FREELLMAPI_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `GITHUB_TOKEN`, `FIRECRAWL_API_KEY`, `OMNIROUTE_API_KEY`
